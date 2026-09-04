@@ -14,25 +14,18 @@ export default function Participant() {
     socket.on("voting-started", (data) => {
       setPoll(data);
       setVotes(data.votes);
+      setJoined(true);
     });
 
-    socket.on("update-results", (v) => setVotes(v));
-
-    socket.on("joined-success", () => setJoined(true));
+    socket.on("update-results", setVotes);
 
     return () => {
       socket.off("voting-started");
       socket.off("update-results");
-      socket.off("joined-success");
     };
   }, []);
 
   const join = () => {
-    if (!code) {
-      alert("Enter code");
-      return;
-    }
-
     socket.emit("join-room", code);
   };
 
@@ -45,77 +38,89 @@ export default function Participant() {
 
   return (
     <div style={container}>
-      <h2>Participant</h2>
+      <div style={card}>
+        <h2>👥 Participant</h2>
 
-      {!joined && (
-        <>
-          <input
-            placeholder="Enter Code"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            style={input}
-          />
-          <button style={btn} onClick={join}>
-            Join
-          </button>
-        </>
-      )}
-
-      {joined && !poll && <p>Waiting for host...</p>}
-
-      {poll && (
-        <>
-          <h3>{poll.question}</h3>
-
-          {poll.options.map((o, i) => (
-            <button key={i} style={btn} onClick={() => vote(i)} disabled={voted}>
-              {o}
+        {!joined && (
+          <>
+            <input
+              placeholder="Enter Code"
+              style={input}
+              onChange={(e) => setCode(e.target.value)}
+            />
+            <button style={btn} onClick={join}>
+              Join
             </button>
-          ))}
+          </>
+        )}
 
-          <h4>Results</h4>
+        {joined && !poll && <p>Waiting for host...</p>}
 
-          {votes.map((v, i) => (
-            <div key={i} style={{ margin: "10px" }}>
-              <p>{poll.options[i]} : {v}</p>
+        {poll && (
+          <>
+            <h3>{poll.question}</h3>
 
-              <div
-                style={{
-                  height: "10px",
+            {poll.options.map((o, i) => (
+              <button key={i} style={btn} onClick={() => vote(i)}>
+                {o}
+              </button>
+            ))}
+
+            <h4>Live Results</h4>
+
+            {votes.map((v, i) => (
+              <div key={i} style={{ margin: "10px" }}>
+                <p>{poll.options[i]} : {v}</p>
+
+                <div style={{
+                  height: "12px",
                   width: `${v * 40}px`,
-                  backgroundColor: "#ffcc00",
-                  borderRadius: "5px"
-                }}
-              ></div>
-            </div>
-          ))}
-        </>
-      )}
+                  background: "linear-gradient(90deg,#ffcc00,#ff9900)",
+                  borderRadius: "10px"
+                }} />
+              </div>
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 }
 
 const container = {
-  textAlign: "center",
   minHeight: "100vh",
-  paddingTop: "40px",
-  background: "#1e1e2f",
-  color: "white"
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "linear-gradient(135deg, #1e1e2f, #2d2d44)",
+  color: "white",
+  fontFamily: "Segoe UI"
 };
 
-const btn = {
-  padding: "10px 20px",
-  margin: "10px",
-  backgroundColor: "#4CAF50",
-  color: "white",
-  border: "none",
-  borderRadius: "6px",
-  cursor: "pointer"
+const card = {
+  padding: "30px",
+  borderRadius: "15px",
+  background: "rgba(255,255,255,0.08)",
+  backdropFilter: "blur(10px)",
+  boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+  width: "400px"
 };
 
 const input = {
+  width: "90%",
   padding: "10px",
-  margin: "10px",
-  borderRadius: "6px",
-  border: "1px solid #ccc"
+  margin: "8px",
+  borderRadius: "10px",
+  border: "none"
+};
+
+const btn = {
+  padding: "10px 15px",
+  margin: "8px",
+  border: "none",
+  borderRadius: "10px",
+  cursor: "pointer",
+  fontWeight: "bold",
+  color: "white",
+  background: "linear-gradient(135deg, #4CAF50, #2ecc71)"
 };

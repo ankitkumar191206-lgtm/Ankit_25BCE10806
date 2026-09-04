@@ -11,15 +11,14 @@ export default function Admin() {
   const [votes, setVotes] = useState([]);
 
   useEffect(() => {
-    socket.on("update-results", (v) => setVotes(v));
-
+    socket.on("update-results", setVotes);
     return () => socket.off("update-results");
   }, []);
 
   const create = async () => {
     const res = await axios.post("http://localhost:5001/create-room", {
       question,
-      options,
+      options
     });
 
     setCode(res.data.code);
@@ -32,87 +31,101 @@ export default function Admin() {
 
   return (
     <div style={container}>
-      <h2>Admin Panel</h2>
+      <div style={card}>
+        <h2>👨‍💼 Admin Panel</h2>
 
-      {!code && (
-        <>
-          <input
-            placeholder="Question"
-            onChange={(e) => setQuestion(e.target.value)}
-            style={input}
-          />
-
-          {options.map((_, i) => (
+        {!code && (
+          <>
             <input
-              key={i}
-              placeholder={"Option " + (i + 1)}
-              onChange={(e) => {
-                let arr = [...options];
-                arr[i] = e.target.value;
-                setOptions(arr);
-              }}
+              placeholder="Question"
               style={input}
+              onChange={(e) => setQuestion(e.target.value)}
             />
-          ))}
 
-          <button style={btn} onClick={() => setOptions([...options, ""])}>
-            Add Option
-          </button>
-
-          <button style={btn} onClick={create}>
-            Create Poll
-          </button>
-        </>
-      )}
-
-      {code && (
-        <>
-          <h3>Room Code: {code}</h3>
-          <button style={btn} onClick={start}>
-            Start Voting
-          </button>
-
-          {votes.map((v, i) => (
-            <div key={i} style={{ margin: "10px" }}>
-              <p>{options[i]} : {v}</p>
-
-              <div
-                style={{
-                  height: "10px",
-                  width: `${v * 40}px`,
-                  backgroundColor: "#00ffcc",
-                  borderRadius: "5px"
+            {options.map((_, i) => (
+              <input
+                key={i}
+                placeholder={`Option ${i + 1}`}
+                style={input}
+                onChange={(e) => {
+                  let arr = [...options];
+                  arr[i] = e.target.value;
+                  setOptions(arr);
                 }}
-              ></div>
-            </div>
-          ))}
-        </>
-      )}
+              />
+            ))}
+
+            <button style={btn} onClick={() => setOptions([...options, ""])}>
+              Add Option
+            </button>
+
+            <button style={btn} onClick={create}>
+              Create Poll
+            </button>
+          </>
+        )}
+
+        {code && (
+          <>
+            <h3>Room Code: {code}</h3>
+
+            <button style={btn} onClick={start}>
+              Start Voting
+            </button>
+
+            {votes.map((v, i) => (
+              <div key={i} style={{ margin: "10px" }}>
+                <p>{options[i]} : {v}</p>
+
+                <div style={{
+                  height: "12px",
+                  width: `${v * 40}px`,
+                  background: "linear-gradient(90deg,#00f5ff,#00ff88)",
+                  borderRadius: "10px"
+                }} />
+              </div>
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 }
 
 const container = {
-  textAlign: "center",
   minHeight: "100vh",
-  paddingTop: "40px",
-  background: "#1e1e2f",
-  color: "white"
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "linear-gradient(135deg, #1e1e2f, #2d2d44)",
+  color: "white",
+  fontFamily: "Segoe UI"
 };
 
-const btn = {
-  padding: "10px 20px",
-  margin: "10px",
-  backgroundColor: "#4CAF50",
-  color: "white",
-  border: "none",
-  borderRadius: "6px",
-  cursor: "pointer"
+const card = {
+  padding: "30px",
+  borderRadius: "15px",
+  background: "rgba(255,255,255,0.08)",
+  backdropFilter: "blur(10px)",
+  boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+  width: "400px"
 };
 
 const input = {
+  width: "90%",
   padding: "10px",
-  margin: "10px",
-  borderRadius: "6px",
-  border: "1px solid #ccc"
+  margin: "8px",
+  borderRadius: "10px",
+  border: "none"
+};
+
+const btn = {
+  padding: "10px 15px",
+  margin: "8px",
+  border: "none",
+  borderRadius: "10px",
+  cursor: "pointer",
+  fontWeight: "bold",
+  color: "white",
+  background: "linear-gradient(135deg, #4CAF50, #2ecc71)"
 };
