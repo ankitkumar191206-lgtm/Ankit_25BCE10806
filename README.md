@@ -4,9 +4,9 @@ A real-time full-stack web application where an Admin can create a poll and Part
 
 ---
 
-## 📌 Features
+##  Features
 
-### 👨‍💼 Admin
+###  Admin
 
 * Create a poll with a question and multiple options (2–6)
 * Generate a unique room code
@@ -14,7 +14,7 @@ A real-time full-stack web application where an Admin can create a poll and Part
 * Start and end the poll
 * Watch live results with dynamic bar visualization
 
-### 👥 Participants
+###  Participants
 
 * Join poll using room code
 * Wait in lobby until poll starts (server-pushed update)
@@ -23,7 +23,7 @@ A real-time full-stack web application where an Admin can create a poll and Part
 
 ---
 
-## ⚙️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 
@@ -39,7 +39,7 @@ A real-time full-stack web application where an Admin can create a poll and Part
 
 ---
 
-## 🔄 How It Works (Architecture)
+##  How It Works (Architecture)
 
 * The backend maintains in-memory “rooms”
 * Each room stores:
@@ -57,7 +57,7 @@ A real-time full-stack web application where an Admin can create a poll and Part
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 live-polling-app/
@@ -79,16 +79,16 @@ live-polling-app/
 
 ## 🚀 Getting Started
 
-### 1️⃣ Clone the repository
+### 1. Clone the repository
 
 ```bash
-git clone <your-repo-link>
+git clone <https://github.com/ankitkumar191206-lgtm/Ankit_25BCE10806>
 cd live-polling-app
 ```
 
 ---
 
-### 2️⃣ Start Backend
+### 2. Start Backend
 
 ```bash
 cd server
@@ -98,7 +98,7 @@ node server.js
 
 ---
 
-### 3️⃣ Start Frontend
+### 3. Start Frontend
 
 ```bash
 cd client
@@ -108,7 +108,7 @@ npm run dev
 
 ---
 
-### 4️⃣ Open in Browser
+### 4. Open in Browser
 
 ```
 http://localhost:5173
@@ -116,7 +116,7 @@ http://localhost:5173
 
 ---
 
-## 🧪 Usage Flow
+##  Usage Flow
 
 1. Admin creates a poll and shares the room code
 2. Participants join using the code
@@ -126,7 +126,7 @@ http://localhost:5173
 
 ---
 
-## 🌟 Key Highlights
+##  Key Highlights
 
 * Real-time updates using WebSockets (Socket.IO)
 * No page refresh required
@@ -136,7 +136,7 @@ http://localhost:5173
 
 ---
 
-## ⚠️ Limitations
+##  Limitations
 
 * Data stored in memory (resets on server restart)
 * No authentication system
@@ -144,7 +144,7 @@ http://localhost:5173
 
 ---
 
-## 🚀 Future Improvements
+##  Future Improvements
 
 * Add database (MongoDB / Firebase)
 * User authentication
@@ -154,14 +154,15 @@ http://localhost:5173
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
-**Ankit Kumar**
-B.Tech CSE Student
+Ankit Kumar,
+Student at
+VIT BHOPAL UNIVERSITY
 
 ---
 
-## 📌 Submission Notes
+##  Submission Notes
 
 This project demonstrates:
 
@@ -171,4 +172,4 @@ This project demonstrates:
 
 ---
 
-⭐ If you like this project, consider giving it a star!
+If you like this project, consider giving it a star!
