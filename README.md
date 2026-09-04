@@ -1,4 +1,4 @@
-# 🚀 Live Polling / Quiz Application
+#  Live Polling / Quiz Application
 
 A real-time full-stack web application where an Admin can create a poll and Participants can join using a room code to vote. The results update instantly across all connected clients without refreshing the page.
 
