@@ -37,31 +37,34 @@ export default function Participant() {
   };
 
   return (
-    <div style={container}>
+    <div style={bg}>
       <div style={card}>
-        <h2>👥 Participant</h2>
+        <h2>👥 Live Poll</h2>
 
         {!joined && (
           <>
             <input
-              placeholder="Enter Code"
+              placeholder="Enter Room Code"
               style={input}
               onChange={(e) => setCode(e.target.value)}
             />
+
             <button style={btn} onClick={join}>
-              Join
+              Join Room
             </button>
           </>
         )}
 
-        {joined && !poll && <p>Waiting for host...</p>}
+        {joined && !poll && (
+          <p style={{ opacity: 0.8 }}>Waiting for admin to start...</p>
+        )}
 
         {poll && (
           <>
             <h3>{poll.question}</h3>
 
             {poll.options.map((o, i) => (
-              <button key={i} style={btn} onClick={() => vote(i)}>
+              <button key={i} style={optBtn} onClick={() => vote(i)}>
                 {o}
               </button>
             ))}
@@ -69,12 +72,12 @@ export default function Participant() {
             <h4>Live Results</h4>
 
             {votes.map((v, i) => (
-              <div key={i} style={{ margin: "10px" }}>
-                <p>{poll.options[i]} : {v}</p>
+              <div key={i} style={{ marginBottom: "12px" }}>
+                <p>{poll.options[i]} — {v}</p>
 
                 <div style={{
                   height: "12px",
-                  width: `${v * 40}px`,
+                  width: `${v * 50}px`,
                   background: "linear-gradient(90deg,#ffcc00,#ff9900)",
                   borderRadius: "10px"
                 }} />
@@ -87,23 +90,23 @@ export default function Participant() {
   );
 }
 
-const container = {
+const bg = {
   minHeight: "100vh",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  background: "linear-gradient(135deg, #1e1e2f, #2d2d44)",
+  background: "radial-gradient(circle at top, #1e1e2f, #0f0f1a)",
   color: "white",
   fontFamily: "Segoe UI"
 };
 
 const card = {
+  width: "420px",
   padding: "30px",
-  borderRadius: "15px",
+  borderRadius: "20px",
   background: "rgba(255,255,255,0.08)",
-  backdropFilter: "blur(10px)",
-  boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
-  width: "400px"
+  backdropFilter: "blur(12px)",
+  boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
 };
 
 const input = {
@@ -115,12 +118,22 @@ const input = {
 };
 
 const btn = {
-  padding: "10px 15px",
+  padding: "10px 14px",
   margin: "8px",
   border: "none",
   borderRadius: "10px",
   cursor: "pointer",
-  fontWeight: "bold",
+  background: "linear-gradient(135deg,#00c6ff,#0072ff)",
   color: "white",
-  background: "linear-gradient(135deg, #4CAF50, #2ecc71)"
+  fontWeight: "bold"
+};
+
+const optBtn = {
+  padding: "10px",
+  margin: "6px",
+  border: "none",
+  borderRadius: "10px",
+  cursor: "pointer",
+  background: "linear-gradient(135deg,#4CAF50,#2ecc71)",
+  color: "white"
 };

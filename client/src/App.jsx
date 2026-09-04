@@ -7,18 +7,20 @@ export default function App() {
 
   if (!role) {
     return (
-      <div style={container}>
+      <div style={bg}>
         <div style={card}>
-          <h1>⚡ Live Polling App</h1>
-          <p>Choose your role</p>
+          <h1 style={{ fontSize: "32px" }}>⚡ Live Polling System</h1>
+          <p style={{ opacity: 0.8 }}>Real-time voting made simple</p>
 
-          <button style={btn} onClick={() => setRole("admin")}>
-            Admin
-          </button>
+          <div style={{ marginTop: "20px" }}>
+            <button style={btn} onClick={() => setRole("admin")}>
+              Enter as Admin
+            </button>
 
-          <button style={btn} onClick={() => setRole("user")}>
-            Participant
-          </button>
+            <button style={btn2} onClick={() => setRole("user")}>
+              Enter as Participant
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -27,32 +29,43 @@ export default function App() {
   return role === "admin" ? <Admin /> : <Participant />;
 }
 
-const container = {
-  minHeight: "100vh",
+const bg = {
+  height: "100vh",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  background: "linear-gradient(135deg, #1e1e2f, #2d2d44)",
-  color: "white",
-  fontFamily: "Segoe UI"
+  background: "radial-gradient(circle at top, #1e1e2f, #0f0f1a)",
+  fontFamily: "Segoe UI",
+  color: "white"
 };
 
 const card = {
   padding: "40px",
-  borderRadius: "15px",
+  borderRadius: "20px",
   background: "rgba(255,255,255,0.08)",
-  backdropFilter: "blur(10px)",
-  boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+  backdropFilter: "blur(12px)",
+  boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
   textAlign: "center"
 };
 
 const btn = {
-  padding: "10px 18px",
+  padding: "12px 18px",
   margin: "10px",
   border: "none",
-  borderRadius: "10px",
+  borderRadius: "12px",
   cursor: "pointer",
-  fontWeight: "bold",
+  background: "linear-gradient(135deg,#00c6ff,#0072ff)",
   color: "white",
-  background: "linear-gradient(135deg, #4CAF50, #2ecc71)"
+  fontWeight: "bold"
+};
+
+const btn2 = {
+  padding: "12px 18px",
+  margin: "10px",
+  border: "none",
+  borderRadius: "12px",
+  cursor: "pointer",
+  background: "linear-gradient(135deg,#ff512f,#dd2476)",
+  color: "white",
+  fontWeight: "bold"
 };
